@@ -16,7 +16,23 @@
 
 <details>
 <summary>About Adele</summary>
-Information here
+Hello, my name is Adele and im based in Bristol. im a student on the CFG Degree Spring '24 cohort for software engineering.
+
+---
+
+Fact about me:
+* I have two gerbils named bean and toast which I adore and spoil way too much.
+* I love playing video games, I have a love hate relationship with counterstrike 2 (cs2)
+* I also love to read, I prefer reading biographies, but I also enjoy an occasional fantasy novel too 
+
+<details>
+<summary> My Tech journey </summary>
+before joining the CFG Degree Spring course I actually never wrote code before. for years before I was always put off 
+as I thought it looked complicated. Early December I was encouraged to give it a try and I started by researching 
+and reading basic guides on python. this then developed a passion and made me look for ways to pursue education further.
+
+</details>
+
 </details>
 &nbsp;  
 <details>
