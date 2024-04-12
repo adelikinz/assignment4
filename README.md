@@ -1,8 +1,8 @@
-# assignment4
+### assignment4
 
-# *ADD GROUP NAME HERE*
+# *PetPal Haven*
 
-#### *COMPANY SLOGAN HERE*
+#### *From Shelter to Hearts: Our promise to pet-kind.*
 
 ---
 
@@ -21,7 +21,23 @@ Information here
 &nbsp;  
 <details>
 <summary>About Cynthia</summary>
-Information here
+Howdy guys! I'm Cynthia and I am currently based in Buckinghamshire. I am a student of the CFG Degree Spring '24 cohort.
+
+---
+
+Fact about me:
+* I am a movie **FANATIC**! Currently making my way through classic 90's movies. Coming-of-age indie films are my fav.
+* I've recently made it my mission to learn how to ski - getting there!
+* I have a really peculiar, irrational fear of closely packed holes: Trypophobia... *shiversss*.
+
+<details>
+<summary> My Tech journey </summary>
+
+I started teaching myself the basics of Javascript in December 2023 a few months before starting the CFG degree.
+I have so far created projects using SQL and Python. I aim to continue improving my learning as the course progresses.
+  
+</details>
+
 </details>  
 &nbsp;
 <details>
@@ -60,7 +76,7 @@ Facts about me:
   <summary> My Tech journey </summary>
 
 I am currently in the Software Stream with the CFG where I am learning more about SQL and python
-every day. It has been an ~~challenging~~ enjoyable experience thus far and I am excited to learn loads more 
+every day. It has been an ~~challenging~~ enjoyable experience thus far, and I am excited to learn loads more 
 during specialisation!
 
   
@@ -71,7 +87,11 @@ during specialisation!
 
 ## About our project
 
-Information here...
+The "I Need a Pet" project was started by our non-profit organisation in collaboration with the 'Rescue Buttons' animal shelter. 
+We started the project in the hopes that we can afford customers the opportunity to experience pet ownership without the 
+need for long-term commitment. Through the 'PetPal Haven', customers have a choice of a variety of different pets to 
+care for their chosen time period. Should customers develop a special bond with their chosen pet and wish to provide them with a more permanent 
+home, we are able to facilitate the adoption process.
 
 ### Built with
 [![Languages used](https://skillicons.dev/icons?i=python,flask,mysql,git&perline=20)](https://skillicons.dev)
