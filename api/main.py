@@ -10,6 +10,14 @@ def get_available_pets():
     return result
 
 
+# Function to get pet by its id from the API
+def get_pet_id(pet_id):
+    result = requests.get(
+        'http://127.0.0.1:5004/pets/{}'.format(pet_id),
+        headers={'content-type': 'application/json'}
+    )
+    return result.json()
+
 
 # Main function to run the application - please amend as you feel fit
 def run():
@@ -22,7 +30,6 @@ def run():
     print('Available Pets', available_pets)
     print('####### AVAILABLE PETS #######')
     print()
-
 
     adopt_pet_choice = input('Would you like to adopt a pet (y/n)? ')
     if adopt_pet_choice.lower() == 'y':
