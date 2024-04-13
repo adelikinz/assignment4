@@ -8,6 +8,13 @@ class DbConnectionError(Exception):
 
 
 def _connect_to_db(db_name):
+    db_connection = mysql.connector.connect(
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=db_name
+    )
+    return db_connection
 # establish connection to database using config file
 
 
