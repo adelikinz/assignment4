@@ -82,25 +82,30 @@ def db_pet_id(pet_id):
             db_connection.close()
             print("DB connection is closed")
 
+
 # Add booking to the SQL database
 def add_booking_to_db(pet_id, customer_id, timeslot, booking_date):
     try:
+        # Connect to the database
         db_name = 'pethaven_db'
         db_connection = _connect_to_db(db_name)
         cur = db_connection.cursor()
         print("Connected to Database")
 
+        # the SQL query for updating the pet booking
         query = """
-            INSERT INTO pet_bookings (pet_id, timeslot_{}, booking_id_{}, bookingDate)
-            VALUES ({}, {}, '{}')
-        """.format(timeslot, timeslot, pet_id, customer_id, booking_date)
+        UPDATE pet_bookings
+        SET pet_id = {}, timeslot_{} = {}, booking_id_{} = {}
+        WHERE bookingDate = '{}';
+        """.format(pet_id, timeslot, customer_id, timeslot, customer_id, booking_date)
 
+        # Executes the query and then commits
         cur.execute(query)
         db_connection.commit()
 
         cur.close()
 
-
+        # returns the booking details
         return {'pet_id': pet_id, 'customer_id': customer_id, 'timeslot': timeslot, 'booking_date': booking_date}
 
     except Exception as e:

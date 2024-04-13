@@ -23,10 +23,10 @@ def get_pet_by_id(pet_id):
 def appt_booking():
     booking_data = request.json
 
-    pet_id = booking_data['pet_id']
-    customer_id = booking_data['customer_id']
-    timeslot = booking_data['timeslot']
-    booking_date = booking_data['booking_date']
+    pet_id = booking_data.get('pet_id')
+    customer_id = booking_data.get('customer_id')
+    timeslot = booking_data.get('timeslot')
+    booking_date = booking_data.get('booking_date')
 
     new_booking = add_booking_to_db(pet_id, customer_id, timeslot, booking_date)
 
