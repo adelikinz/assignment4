@@ -18,7 +18,7 @@ def get_pet_by_id(pet_id):
     res = db_pet_id(pet_id)
     return jsonify(res)
 
-# API endpoint to add a booking
+# API endpoint to add a pet booking
 @app.route('/pet-bookings', methods=['POST'])
 def appt_booking():
     booking_data = request.json

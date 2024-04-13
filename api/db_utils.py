@@ -92,7 +92,7 @@ def add_booking_to_db(pet_id, customer_id, timeslot, booking_date):
         cur = db_connection.cursor()
         print("Connected to Database")
 
-        # the SQL query for updating the pet booking
+        # the SQL query for updating the pet bookings
         query = """
         UPDATE pet_bookings
         SET pet_id = {}, timeslot_{} = {}, booking_id_{} = {}
