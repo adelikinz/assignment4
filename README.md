@@ -140,6 +140,7 @@ Please see prerequisites in the requirements.txt file
 A .gitignore file tells git which files, directories or patterns in your project to ignore and not to track.  
 The .gitignore file is created with a `.` at the beginning.  
 Each line the .gitignore file indicates a new file, folder or pattern to ignore.  
+A .gitignore file is usually located and found in the root directory of the project or repository.
   
 #### requirements.txt
 requirements.txt is a text file that lists all the packages, modules and libraries that the project needs to run. 
