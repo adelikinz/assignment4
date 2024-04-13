@@ -55,10 +55,6 @@ INSERT INTO customers (customer_name, customer_email) VALUES
 ('Alice Smith', 'alice@example.com'),
 ('Bob Johnson', 'bob@example.com');
 
--- example booking in the database
-INSERT INTO pet_bookings (pet_id, timeslot_9_11, booking_id_9_11, bookingDate) VALUES 
-(1, 1, 1, '2024-04-03');
-
 CALL `pethaven_db`.`filldates`(20240401, 20240407, 1);
 CALL `pethaven_db`.`filldates`(20240401, 20240407, 2);
 CALL `pethaven_db`.`filldates`(20240401, 20240407, 3);
