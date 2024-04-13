@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from db_utils import db_call_without_values, create_user_db, db_call_with_values_without_return, db_call_with_values, find_user_db
+from db_utils import db_call_without_values, create_customer_db, db_call_with_values_without_return, db_call_with_values, find_customer_db
 app = Flask(__name__)
 
 @app.route('/pets', methods=[])
