@@ -136,10 +136,30 @@ Please see prerequisites in the requirements.txt file
 
 ## Our files
 
-#### .gitgnore
-About the file
-
+#### .gitignore
+A .gitignore file tells git which files, directories or patterns in your project to ignore and not to track.  
+The .gitignore file is created with a `.` at the beginning.  
+Each line the .gitignore file indicates a new file, folder or pattern to ignore.  
+A .gitignore file is usually located and found in the root directory of the project or repository.
+  
 #### requirements.txt
-About the file
+requirements.txt is a text file that lists all the packages, modules and libraries that the project needs to run. 
+Or, in other words, it lists the projects dependencies.  
+Within this file the dependencies can have a specified version listed that the project has used.
+The syntax is displayed as: `flask==3.0.3`  
+To install the necessary project dependencies in your virtual environment you can use:  
+`pip install -r requirements.txt` 
+Once the packages are installed you can import them into your files.
 
 ---
+
+## Project Screenshots
+
+![image](https://github.com/adelikinz/assignment4/assets/108008511/5c8b5d11-060b-4538-bb5b-bd84b88b0d0f)  
+  
+![image](https://github.com/adelikinz/assignment4/assets/108008511/0d3c4a4c-419f-4637-8fd2-1d9d5693e1bf)  
+  
+![image](https://github.com/adelikinz/assignment4/assets/108008511/315d638e-d6d1-41d7-b8e2-3b1a1de84e48)  
+
+
+
