@@ -74,7 +74,7 @@ def run():
         ### dates available for selected pet id shown here ###
         date = input('Enter the date you would like to book (yyyy-mm-dd): ')
         ### available timeslots shown here ###
-        timeslot = # user input here for selected timeslot
+        # timeslot = user input here for selected timeslot
 
         customer = input('Are you a new customer? Enter yes or no: ')
         ### loop here to either find existing customer or to create a new customer in database
