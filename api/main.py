@@ -4,9 +4,23 @@ import requests
 host_url = 'http://127.0.0.1:5000'
 # update to host url on device should be same url as the one given in flask
 
+
+# function for displaying the available pets:
 def display_availability():
-    url = f'{host_url}/pets'
-# displays the available pets for renting (uses app endpoint /pets)
+    # sending a GET request to retrieve available pets
+    response = requests.get(f'{host_url}/pets', headers={'content-type': 'application/json'})
+    # Check if the response status code is OK (200)
+    if response.status_code == 200:
+    # if response = 200, extract data in JSON format
+        pets = response.json()
+        print("Available Pets:")
+    # iterate over each pet and display their pet ID, Name, Type and Age:
+        for pets in pets:
+            print(f"ID: {pets[0]}, Name: {pets[1]}, Type: {pets[2]}, Age: {pets[3]}")
+    else:
+    # if response status code != 200, then print the below:
+        print("Failed to retrieve available pets.")
+
 
 def rent_pet(pet_id, timeslot, customer_id, date):
     url = f'{host_url}/rent'
