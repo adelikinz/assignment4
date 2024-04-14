@@ -13,7 +13,6 @@ def get_available_pets():
     return jsonify(pets)
 
 
-
 @app.route('/dates', methods=[])
 def get_available_dates():
     pass
@@ -29,14 +28,43 @@ def get_available_timeslots():
 @app.route('/create_customer', methods=[])
 def create_customer():
     pass
-# endpoint to create a customer in the customer table as a user
+    data = request.json
+    customer_name = data.get('customer_name')
+    customer_email = data.get('customer_email')
 
+    # Checks if the required fields are provided
+    if not customer_name or not customer_email:
+        return jsonify({'message': 'Customer name and email are required'}), 400
+
+    # Insert the new customer into the database and retrieves customer id for newly created customer
+    try:
+        query = "INSERT INTO customers (customer_name, customer_email) VALUES ('{}', '{}')".format(customer_name,
+                                                                                                   customer_email)
+        customer_id = create_customer_db(query)  # Calls the create_customer function with the query and values
+        return jsonify({'message': 'User created successfully', 'customer_id': customer_id}), 201
+    except Exception as e:
+        return jsonify({'message': 'Failed to create user', 'error': str(e)}), 500
+    # this endpoint creates a customer in the customer table and retrieves customer id for booking
 
 @app.route('/find_customer', methods=[])
 def find_customer():
     pass
-# endpoint to find an existing customer as a user
+    data = request.json
+    customer_name = data.get('customer_name')
+    customer_email = data.get('customer_email')
 
+    # Checks if the inputted fields are provided match the customer's in the database
+    if not customer_name or not customer_email:
+        return jsonify({'message': 'Customer name and email are required'}), 400
+
+    # retrieves the returning customer's id from the database to be used for booking
+    try:
+        query = "SELECT customer_id FROM customers WHERE customer_name = %s AND customer_email = %s"
+        customer_id = find_customer_db(query, (customer_name, customer_email))
+        return str(customer_id[0][0])
+    except Exception as e:
+        return jsonify({'message': 'Failed to find customer', 'error': str(e)}), 500
+    #  this endpoint is to find existing customers in the database from customer name and email and retrieves their customer id for booking
 
 @app.route('/rent', methods=['POST'])
 def rent_pet():

@@ -19,12 +19,52 @@ def _connect_to_db(db_name):
 
 
 def find_customer_db(query, values):
-    # database call that searches for customer id by existing customer name and email.
-    pass
+    try:
+        db_name = 'pethaven_db'
+        db_connection = _connect_to_db(db_name)
+        cur = db_connection.cursor()
+        print("Connected to DB: %s" % db_name)
+
+        cur.execute(query, values)
+
+        result = cur.fetchall()
+        cur.close()
+
+    except Exception:
+        raise DbConnectionError("Failed to read data from DB")
+
+    finally:
+        if db_connection:
+            db_connection.close()
+            print("DB connection is closed")
+
+    return result
+# database call that searches for customer id by existing customer name and email.
 
 def create_customer_db(query):
-    # creates customer in the database with the user-input customer name and email, this also returns customer id to be used elsewhere.
-    pass
+    try:
+        db_name = 'pethaven_db'
+        db_connection = _connect_to_db(db_name)
+        cur = db_connection.cursor()
+        print("Connected to DB: %s" % db_name)
+
+        print("Executing query:", query)
+        cur.execute(query)
+        db_connection.commit()
+        customer_id = cur.lastrowid
+        cur.close()
+        print("User created successfully")
+        return customer_id
+
+    except Exception as e:
+        print("Error:", e)
+        raise DbConnectionError("Failed to create customer")
+
+    finally:
+        if db_connection:
+            db_connection.close()
+            print("DB connection is closed")
+# creates customer in the database with the user-input customer name and email, this also returns customer id to be used elsewhere.
 
 def db_call_without_values(query):
     availability = []

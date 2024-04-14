@@ -4,8 +4,6 @@ import requests
 host_url = 'http://127.0.0.1:5000'
 # update to host url on device should be same url as the one given in flask
 
-
-# function for displaying the available pets:
 def display_availability():
     # sending a GET request to retrieve available pets
     response = requests.get(f'{host_url}/pets', headers={'content-type': 'application/json'})
@@ -20,7 +18,7 @@ def display_availability():
     else:
     # if response status code != 200, then print the below:
         print("Failed to retrieve available pets.")
-
+# function for displaying the available pets:
 
 def rent_pet(pet_id, timeslot, customer_id, date):
     url = f'{host_url}/rent'
@@ -31,14 +29,31 @@ def adopt_pet(pet_id):
     url = f'{host_url}/adopt'
 # removes any bookings and alters availability so noone is able to book the pet (uses app endpoint /adopt)
 
-def create_user(customer_name, customer_email):
-    url = f'{host_url}/create_user'
+def create_customer(customer_name, customer_email):
+    url = f'{host_url}/create_customer'
     data = {'customer_name': customer_name, 'customer_email': customer_email}
+    response = requests.post(url, headers={'content-type': 'application/json'}, json=data)
+    if response.status_code == 201:
+        print("customer created successfully")
+        response_data = response.json()
+        customer_id = response_data.get('customer_id')
+        return customer_id
+    else:
+        print("Failed to create customer")
+        return None
 # creates a customer with user input of name and email and saves them in the database as a customer (uses app endpoint /create_user)
 
-def query_existing_user(customer_name, customer_email):
-    url = f'{host_url}/find_user'
+def query_existing_customer(customer_name, customer_email):
+    url = f'{host_url}/find_customer'
     data = {'customer_name': customer_name, 'customer_email': customer_email}
+    response = requests.post(url, headers={'content-type': 'application/json'}, json=data)
+    if response.status_code == 200:
+        print("customer found successfully")
+        customer_id = response.text
+        return customer_id
+    else:
+        print("Failed to find customer")
+        return None
 # searches for existing customer using input of customer name and email in the database and returns the customer_id.
 
 def display_dates(pet_id):
@@ -77,9 +92,23 @@ def run():
         # timeslot = user input here for selected timeslot
 
         customer = input('Are you a new customer? Enter yes or no: ')
-        ### loop here to either find existing customer or to create a new customer in database
-        ### use create/find customer endpoints to do this
-
+        if customer == 'yes':
+            customer_name = input("Enter customer name: ")
+            customer_email = input("Enter customer email: ")
+            customer_id = create_customer(customer_name, customer_email)
+            if customer_id:
+                rent_pet(pet_id, timeslot, customer_id, date)
+            else:
+                print("Failed to obtain customerid from new customer")
+        else:
+            customer_name = input("Enter customer name: ")
+            customer_email = input("Enter customer email: ")
+            customer_id = query_existing_customer(customer_name, customer_email)
+            if customer_id:
+                rent_pet(pet_id, timeslot, customer_id, date)
+            else:
+                print("Failed to obtain customer id from existing customer")
+        # this is a loop for customer input
 
     elif adopt_pet_choice == 'adopt':
     ### show available pets here ###
