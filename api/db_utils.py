@@ -6,12 +6,16 @@ class DbConnectionError(Exception):
 
 # every function should be in a try/catch statement as we are connecting to database here
 
+
 def _connect_to_db(db_name):
+    db_connection = mysql.connector.connect(
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=db_name
+    )
+    return db_connection
 # establish connection to database using config file
-
-
-def db_call_without_values(query):
-# general database call that executes query but doesn't return anything.
 
 
 def find_customer_db(query, values):
@@ -19,14 +23,80 @@ def find_customer_db(query, values):
 
 
 def create_customer_db(query):
-# creates customer in the database with the inputted customer name and email should also return customer id to be used elsewhere
+# creates customer in the database with the user-input customer name and email, this also returns customer id to be used elsewhere.
+
+def db_call_without_values(query):
+    availability = []
+    try:
+        db_name = 'pethaven_db'
+        db_connection = _connect_to_db(db_name)
+        cur = db_connection.cursor()
+        print("Connected to DB: %s" % db_name)
+
+        cur.execute(query)
+
+        result = cur.fetchall()
+        availability = result
+        cur.close()
+
+    except Exception:
+        raise DbConnectionError("Failed to read data from DB")
+
+    finally:
+        if db_connection:
+            db_connection.close()
+            print("DB connection is closed")
+
+    return availability
+# general database call that executes a sql query and returns the results and assigns it to the variable 'availability'.
 
 
 def db_call_with_values_without_return(query, values):
-# general db call that takes values and does not return anything
+    try:
+        db_name = 'pethaven_db'
+        db_connection = _connect_to_db(db_name)
+        cur = db_connection.cursor()
+        print("Connected to DB: %s" % db_name)
+
+        print("Executing query:", query)
+        cur.execute(query, values)
+        db_connection.commit()
+        cur.close()
+
+    except Exception as e:
+        print("Error:", e)
+        raise DbConnectionError("db_call_with_values_without_return failed")
+
+    finally:
+        if db_connection:
+            db_connection.close()
+            print("DB connection is closed")
+# this function is a reusable db call that takes a sql query with values(user input) and commits the values into database
 
 
 def db_call_with_values(query, values):
-# general db call that takes query with values and returns results
+    items = []
+    try:
+        db_name = 'pethaven_db'
+        db_connection = _connect_to_db(db_name)
+        cur = db_connection.cursor()
+        print("Connected to DB: %s" % db_name)
 
+        cur.execute(query, values)
+
+        result = cur.fetchall()
+        items = result
+        cur.close()
+
+    except Exception:
+        raise DbConnectionError("Failed to read data from DB")
+
+    finally:
+        if db_connection:
+            db_connection.close()
+            print("DB connection is closed")
+
+    return items
+# this function is a reusable db call that takes and executes a sql query with the value(user input)
+# and returns results as the variable 'items'
 
