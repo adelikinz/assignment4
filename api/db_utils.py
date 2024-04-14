@@ -102,7 +102,7 @@ def db_call_with_values(query, values):
 # and returns results as the variable 'items'
 
 
-# Function to add customer pet booking into database
+# Function to add customer pet bookings into database
 def add_booking_to_db(pet_id, customer_id, timeslot, booking_date):
     try:
         # Connect to the database
@@ -136,7 +136,7 @@ def add_booking_to_db(pet_id, customer_id, timeslot, booking_date):
             print("DB connection is closed")
 
 
-# function to cancel existing bookings for pets, this can be used for pets that have been adopted
+# function to cancel existing booking for pets, this can be used for pets that have been adopted
 def cancel_bookings(pet_id):
     try:
         db_name = 'pethaven_db'

@@ -40,7 +40,7 @@ def find_customer():
 
 @app.route('/rent', methods=['POST'])
 def rent_pet():
-    # endpoint to fill in the booking table for renting
+    # endpoint to fill in the booking table for renting pet
     renting_data = request.json
     pet_id = renting_data.get('pet_id')
     customer_id = renting_data.get('customer_id')
