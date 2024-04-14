@@ -13,16 +13,54 @@ def get_available_pets():
     return jsonify(pets)
 
 
-@app.route('/dates', methods=[])
-def get_available_dates():
-    pass
 # endpoint to retrieve available dates
+@app.route('/dates', methods=['GET'])
+def get_available_dates():
+    pet_id = request.args.get('pet_id')
+
+    # Check if pet_id has been given
+    if pet_id is None:
+        return jsonify({'message': 'Pet ID is required'}), 400
+
+    # Pass the pet_id value within the query to get all dates
+    query = "SELECT bookingDate FROM pet_bookings WHERE pet_id = %s"
+    available_dates = db_call_with_values(query, (pet_id,))
+
+    return jsonify(available_dates)
 
 
-@app.route('/timeslots', methods=[])
-def get_available_timeslots():
-    pass
 # endpoint to retrieve available timeslots for the available pets
+@app.route('/timeslots', methods=['GET'])
+def get_available_timeslots():
+    pet_id = request.args.get('pet_id')
+    booking_date = request.args.get('bookingDate')
+
+    # Check if pet_id has been given
+    if pet_id is None:
+        return jsonify({'message': 'Pet ID is required'}), 400
+
+    # Check if pet_id has been given
+    if booking_date is None:
+        return jsonify({'message': 'Booking date is required'}), 400
+
+    query = """
+    SELECT
+        timeslot_9_11,
+        timeslot_13_15,
+        timeslot_17_19
+    FROM
+        pet_bookings
+    WHERE
+        pet_id = %s
+        AND (timeslot_9_11 IS NULL OR booking_id_9_11 IS NOT NULL)
+        AND (timeslot_13_15 IS NULL OR booking_id_13_15 IS NOT NULL)
+        AND (timeslot_17_19 IS NULL OR booking_id_17_19 IS NOT NULL)
+        AND bookingDate = %s
+    """
+
+    available_timeslots = db_call_with_values(query, (pet_id, booking_date))
+
+    return jsonify(available_timeslots)
 
 
 @app.route('/create_customer', methods=[])
