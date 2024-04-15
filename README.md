@@ -115,22 +115,6 @@ home, we are able to facilitate the adoption process.
 ### Tools used
 [![Tools used](https://skillicons.dev/icons?i=github,postman,pycharm&perline=20)](https://skillicons.dev)
 
----
-
-## Getting Started
-
-### Prerequisites
-
-Please see prerequisites in the requirements.txt file
-
-### Installation
-
-1. Clone the repo
-`git clone https://github.com/adelikinz/assignment4.git`  
-  
-2. Install the necessary packages (see requirements.txt file)  
-  
-3. Create a `config.py` file and add in your Host, Username, Password and Database to connect to the MySQL database
 
 ---
 
@@ -151,9 +135,9 @@ To install the necessary project dependencies in your virtual environment you ca
 `pip install -r requirements.txt` 
 Once the packages are installed you can import them into your files.
 
+## Installing and using our API
 ---
 <details>
-  <summary> How to use our API </summary>
 
 Welcome to pet haven :dog:
 
@@ -164,11 +148,14 @@ To experience this joy, please follow the below instructions:
 1. Open up Pycharm or another IDE of your choice and open up the terminal.
 2. Navigate to the directory where you want to clone this repository.
 3. Clone the repository by copying and pasting the below in your terminal:
-	git clone https://github.com/adelikinz/assignment4.git
+	`git clone https://github.com/adelikinz/assignment4.git`
 4. Install the following packages via the terminal:
+
 pip install flask (pip3 install flask for mac user)
 pip install requests (pip3 install requests for mac user)
 pip install mysql-connector-python (pip3 install mysql-connector-python for mac user)
+import JSON and from datetime import datetime at the top of the main.py file.
+
 5. Open up mySQL workbench and copy and paste our pet_haven database from the pethaven_db.sql file & execute this code on the workbench to create the pet_haven database.
 6. Update the config.py file with your mySQL Host, User and Password information. This is necessary for connecting the Flask application to the MySQL database.
 7. If necessary, change the root of the host_url in the main.py and app.py file if another application on your machine is already using port 5000.
@@ -193,7 +180,11 @@ pip install mysql-connector-python (pip3 install mysql-connector-python for mac 
 
 ![image](https://github.com/adelikinz/assignment4/assets/108008511/0d3c4a4c-419f-4637-8fd2-1d9d5693e1bf)  
 ### created a new branch
-![image](https://github.com/adelikinz/assignment4/assets/108008511/315d638e-d6d1-41d7-b8e2-3b1a1de84e48)  
+![image](https://github.com/adelikinz/assignment4/assets/108008511/315d638e-d6d1-41d7-b8e2-3b1a1de84e48) 
+
+### opening a pull request
+
+
 
 </details>
 
