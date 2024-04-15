@@ -168,7 +168,7 @@ def run():
         display_timeslots(pet_id, chosen_date)
         timeslot = get_timeslot_choice()
 
-        # Creating new customer or checking existing customer
+        # Creating new customer or checking for existing customer in db
         customer_id = None
 
         while customer_id is None:
