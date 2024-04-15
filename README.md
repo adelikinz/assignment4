@@ -137,7 +137,7 @@ Once the packages are installed you can import them into your files.
 
 ## Installing and using our API
 ---
-<details>
+<Instructions on how to use our API>
 
 Welcome to pet haven :dog:
 
@@ -151,31 +151,36 @@ To experience this joy, please follow the below instructions:
 	`git clone https://github.com/adelikinz/assignment4.git`
 4. Install the following packages via the terminal:
 
-pip install flask (pip3 install flask for mac user)
-pip install requests (pip3 install requests for mac user)
-pip install mysql-connector-python (pip3 install mysql-connector-python for mac user)
-import JSON and from datetime import datetime at the top of the main.py file.
+- pip install flask (pip3 install flask for mac user)
+- pip install requests (pip3 install requests for mac user)
+- pip install mysql-connector-python (pip3 install mysql-connector-python for mac user)
+- import JSON and from datetime import datetime at the top of the main.py file.
 
 5. Open up mySQL workbench and copy and paste our pet_haven database from the pethaven_db.sql file & execute this code on the workbench to create the pet_haven database.
 6. Update the config.py file with your mySQL Host, User and Password information. This is necessary for connecting the Flask application to the MySQL database.
 7. If necessary, change the root of the host_url in the main.py and app.py file if another application on your machine is already using port 5000.
 8. Run the app.py file first and then run the main.py file on Pycharm.
 9. Follow the prompts that appear in the terminal to see what animals we have at pet haven (and you want to possible rent/adopt).
-10. Once you have pressed run on the app.py file, you can also access the API via the web browser or Postman using the host_url found in main.py (host_url = 'http://127.0.0.1:5000’). For example, to access all available pets you would have to make a GET request on Postman: http://127.0.0.1:5000/pets
+10. Once you have pressed run on the app.py file, you can also access the API via the web browser or Postman using the host_url found in main.py (host_url = `http://127.0.0.1:5000`). For example, to access all available pets you would have to make a GET request on Postman: http://127.0.0.1:5000/pets
 11. If you experience any issues, please check the terminal where Flask is running and follow the instructions of any error messages that may appear on there. 
 
   
-</details>
+</Instructions>
 
 
 
 
 
 ## Project Screenshots
-<details>
+
+<Screenshots>
+
 ### checking status, created a new file, added the file to a branch & committing with a meaningful message: 
 
 ![image](https://github.com/adelikinz/assignment4/assets/108008511/5c8b5d11-060b-4538-bb5b-bd84b88b0d0f)  
+
+
+
 ![image](https://github.com/adelikinz/assignment4/blob/diinin9-screenshots/Screenshot%202024-04-15%20at%2020.34.27.png?raw=true)
 
 ![image](https://github.com/adelikinz/assignment4/assets/108008511/0d3c4a4c-419f-4637-8fd2-1d9d5693e1bf)  
@@ -186,5 +191,6 @@ import JSON and from datetime import datetime at the top of the main.py file.
 ![image](https://github.com/adelikinz/assignment4/blob/diinin9-screenshots/Screenshot%202024-04-15%20at%2020.34.53.png?raw=true)
 ![image](https://github.com/adelikinz/assignment4/blob/diinin9-screenshots/Screenshot%202024-04-15%20at%2020.35.14.png?raw=true)
 
-</details>
+</Screenshots>
+
 
