@@ -155,14 +155,17 @@ Once the packages are installed you can import them into your files.
 <details>
   <summary> How to use our API </summary>
 
-Welcome to pet haven.
+Welcome to pet haven :dog:
+
 Pet haven is a place where people can come and experience the joys of having a pet, without worrying about all the hassle, fuss or initial commitments!
+
 To experience this joy, please follow the below instructions:
-Open up Pycharm or another IDE of your choice and open up the terminal.
-Navigate to the directory where you want to clone this repository.
-Clone the repository by copying and pasting the below in your terminal:
+
+1. Open up Pycharm or another IDE of your choice and open up the terminal.
+2. Navigate to the directory where you want to clone this repository.
+3. Clone the repository by copying and pasting the below in your terminal:
 	git clone https://github.com/adelikinz/assignment4.git
- 4. Install the following packages via the terminal:
+4. Install the following packages via the terminal:
 pip install flask (pip3 install flask for mac user)
 pip install requests (pip3 install requests for mac user)
 pip install mysql-connector-python (pip3 install mysql-connector-python for mac user)
@@ -184,7 +187,9 @@ pip install mysql-connector-python (pip3 install mysql-connector-python for mac 
 ## Project Screenshots
 <details>
 ### checking status, created a new file, added the file to a branch & committing with a meaningful message: 
+
 ![image](https://github.com/adelikinz/assignment4/assets/108008511/5c8b5d11-060b-4538-bb5b-bd84b88b0d0f)  
+
 
 ![image](https://github.com/adelikinz/assignment4/assets/108008511/0d3c4a4c-419f-4637-8fd2-1d9d5693e1bf)  
 ### created a new branch
