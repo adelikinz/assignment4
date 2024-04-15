@@ -176,15 +176,15 @@ import JSON and from datetime import datetime at the top of the main.py file.
 ### checking status, created a new file, added the file to a branch & committing with a meaningful message: 
 
 ![image](https://github.com/adelikinz/assignment4/assets/108008511/5c8b5d11-060b-4538-bb5b-bd84b88b0d0f)  
-
+![image](https://github.com/adelikinz/assignment4/blob/diinin9-screenshots/Screenshot%202024-04-15%20at%2020.34.27.png?raw=true)
 
 ![image](https://github.com/adelikinz/assignment4/assets/108008511/0d3c4a4c-419f-4637-8fd2-1d9d5693e1bf)  
 ### created a new branch
 ![image](https://github.com/adelikinz/assignment4/assets/108008511/315d638e-d6d1-41d7-b8e2-3b1a1de84e48) 
 
 ### opening a pull request
-
-
+![image](https://github.com/adelikinz/assignment4/blob/diinin9-screenshots/Screenshot%202024-04-15%20at%2020.34.53.png?raw=true)
+![image](https://github.com/adelikinz/assignment4/blob/diinin9-screenshots/Screenshot%202024-04-15%20at%2020.35.14.png?raw=true)
 
 </details>
 
