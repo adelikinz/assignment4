@@ -195,11 +195,19 @@ def run():
     # this is a loop for customer input
 
     elif adopt_pet_choice == 'adopt':
-        display_availability()
-        pet_id = input('Enter the ID of the pet you would like to adopt: ')
-        adopt_pet(pet_id)
+        while True:
+            print()
+            display_availability()
+            pet_id = input('Enter the ID of the pet you would like to adopt: ')
+            # This checks if the user input for pet ID is valid
+            if pet_id in ['1', '2', '3']:
+                adopt_pet(pet_id)
+                break
+            else:
+                print("\nPet not found. Please try again.")
     # if the customer wants to adopt
     elif adopt_pet_choice == 'exit':
+
         print("Goodbye! We hope to see you again soon.")
 
 
