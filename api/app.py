@@ -1,8 +1,11 @@
 from flask import Flask, request, jsonify
-from db_utils import db_call_without_values, create_customer_db, db_call_with_values_without_return, db_call_with_values, find_customer_db, add_booking_to_db, cancel_bookings, update_pet_availability
+from db_utils import (db_call_without_values, create_customer_db, db_call_with_values_without_return,
+                      db_call_with_values, find_customer_db)
+
+
 app = Flask(__name__)
 
-# endpoint to retrieve pets that are available using GET HTTP
+
 @app.route('/pets', methods=['GET'])
 def get_available_pets():
     # SQL query to retrieve available pets from DB:
@@ -11,9 +14,9 @@ def get_available_pets():
     pets = db_call_without_values(query)
     # available pets are returned in a JSON response:
     return jsonify(pets)
+# endpoint to retrieve pets that are available
 
 
-# endpoint to retrieve available dates
 @app.route('/dates', methods=['GET'])
 def get_available_dates():
     pet_id = request.args.get('pet_id')
@@ -27,9 +30,9 @@ def get_available_dates():
     available_dates = db_call_with_values(query, (pet_id,))
 
     return jsonify(available_dates)
+# endpoint to retrieve available dates for the available pet
 
 
-# endpoint to retrieve available timeslots for the available pets
 @app.route('/timeslots', methods=['GET'])
 def get_available_timeslots():
     pet_id = request.args.get('pet_id')
@@ -60,12 +63,26 @@ def get_available_timeslots():
 
     available_timeslots = db_call_with_values(query, (pet_id, booking_date))
 
-    return jsonify(available_timeslots)
+    # Create a dictionary with column names and corresponding timeslots
+    timeslot_dict = {
+        '9-11am': available_timeslots[0][0],
+        '1-3pm': available_timeslots[0][1],
+        '5-7pm': available_timeslots[0][2]
+    }
+    # Filter out None values and corresponding table headers
+    filtered_timeslots = [timeslot for timeslot in timeslot_dict.values() if timeslot is None]
+    filtered_table_headers = [header for header, timeslot in timeslot_dict.items() if timeslot is None]
+    response_data = {
+        'timeslots': [filtered_timeslots],
+        'table_header': filtered_table_headers
+    }
+
+    return jsonify(response_data)
+# endpoint to retrieve available timeslots for available pet
 
 
-@app.route('/create_customer', methods=[])
+@app.route('/create_customer', methods=['POST'])
 def create_customer():
-    pass
     data = request.json
     customer_name = data.get('customer_name')
     customer_email = data.get('customer_email')
@@ -83,10 +100,11 @@ def create_customer():
     except Exception as e:
         return jsonify({'message': 'Failed to create user', 'error': str(e)}), 500
     # this endpoint creates a customer in the customer table and retrieves customer id for booking
+# endpoint to create a customer in the database
 
-@app.route('/find_customer', methods=[])
+
+@app.route('/find_customer', methods=['POST'])
 def find_customer():
-    pass
     data = request.json
     customer_name = data.get('customer_name')
     customer_email = data.get('customer_email')
@@ -102,7 +120,9 @@ def find_customer():
         return str(customer_id[0][0])
     except Exception as e:
         return jsonify({'message': 'Failed to find customer', 'error': str(e)}), 500
-    #  this endpoint is to find existing customers in the database from customer name and email and retrieves their customer id for booking
+#  this endpoint is to find existing customers in the database from customer name and email
+#  and retrieves their customer id for booking
+
 
 @app.route('/rent', methods=['POST'])
 def rent_pet():
@@ -111,26 +131,37 @@ def rent_pet():
     pet_id = renting_data.get('pet_id')
     customer_id = renting_data.get('customer_id')
     timeslot = renting_data.get('timeslot')
-    booking_date = renting_data.get('booking_date')
+    booking_date = renting_data.get('bookingDate')
+    if not pet_id or not timeslot or not customer_id or not booking_date:
+        return jsonify({'message': 'Missing required fields'}), 400
 
-    new_booking = add_booking_to_db(pet_id, customer_id, timeslot, booking_date)
-
-    return jsonify(new_booking), 201
+    try:
+        booking_id_column = f"booking_id_{timeslot[9:]}"
+        # Book the pet for the specified timeslot
+        booking_query = (f"UPDATE pet_bookings SET {timeslot} = %s, "
+                         f"{booking_id_column} = %s WHERE pet_id = %s AND bookingDate = %s")
+        db_call_with_values_without_return(booking_query, (customer_id, customer_id, pet_id, booking_date))
+        return jsonify({'message': 'Pet rented successfully'}), 201
+    except Exception as e:
+        return jsonify({'message': 'Failed to rent pet', 'error': str(e)}), 500
+# endpoint to fill in booking table
 
 
 @app.route('/adopt', methods=['POST'])
-def adopt_pet(data=None):
-    adoption_data = request.json
+def adopt_pet():
+    data = request.json
     pet_id = data.get('pet_id')
 
-    # Cancel any existing bookings for the pet due to pending adoption
-    cancel_bookings(pet_id)
+    # updates the availability of the pet for adoption
+    query = "UPDATE pets SET available_for_rent = 0 WHERE pet_id = %s"
+    db_call_with_values_without_return(query, (pet_id,))
 
-    # Update pet availability to not available for rent due to adoption
-    update_pet_availability(pet_id)
+    # Remove the pet from the available pets list
+    query = "DELETE FROM pet_bookings WHERE pet_id = %s"
+    db_call_with_values_without_return(query, (pet_id,))
 
-    return jsonify({"message": "Successful adoption"}), 200
-
+    return jsonify({'message': 'Pet adopted successfully and bookings deleted'}), 200
+# endpoint to update availability
 
 
 if __name__ == '__main__':
