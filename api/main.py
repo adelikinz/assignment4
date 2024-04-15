@@ -1,25 +1,19 @@
 import json
-from flask import Flask, request, jsonify
 import requests
 from datetime import datetime
 
 host_url = 'http://127.0.0.1:5000'
-# update to host url on device should be same url as the one given in flask
+# update to host url on device (this should be the same url as the one given from flask)
 
 
 def display_availability():
-    # sending a GET request to retrieve available pets
     response = requests.get(f'{host_url}/pets', headers={'content-type': 'application/json'})
-    # Check if the response status code is OK (200)
     if response.status_code == 200:
-    # if response = 200, extract data in JSON format
         pets = response.json()
         print("Available Pets:")
-    # iterate over each pet and display their pet ID, Name, Type and Age:
         for pets in pets:
             print(f"ID: {pets[0]}, Name: {pets[1]}, Type: {pets[2]}, Age: {pets[3]}")
     else:
-    # if response status code != 200, then print the below:
         print("Failed to retrieve available pets.")
 # function for displaying the available pets:
 
@@ -27,12 +21,17 @@ def display_availability():
 def rent_pet(pet_id, timeslot, customer_id, date):
     url = f'{host_url}/rent'
     data = {'pet_id': pet_id, 'timeslot': timeslot, 'customer_id': customer_id, 'bookingDate': date}
-# takes the user input for booking table and posts it to the endpoint (uses app endpoint /rent)
+    response = requests.post(url, headers={'content-type': 'application/json'}, json=data)
+    print(response.json())
+# function to update the booking table for renting
 
 
 def adopt_pet(pet_id):
     url = f'{host_url}/adopt'
-# removes any bookings and alters availability so noone is able to book the pet (uses app endpoint /adopt)
+    data = {'pet_id': pet_id}
+    response = requests.post(url, headers={'content-type': 'application/json'}, json=data)
+    print(response.json())
+# function that removes any bookings and alters availability to remove the pet from the available pet list
 
 
 def create_customer(customer_name, customer_email):
@@ -47,7 +46,7 @@ def create_customer(customer_name, customer_email):
     else:
         print("Failed to create customer")
         return None
-# creates a customer with user input of name and email and saves them in the database as a customer (uses app endpoint /create_user)
+# function that creates a customer with given name and email and saves them in the database as a customer.
 
 
 def query_existing_customer(customer_name, customer_email):
@@ -61,10 +60,10 @@ def query_existing_customer(customer_name, customer_email):
     else:
         print("Failed to find customer")
         return None
-# searches for existing customer using input of customer name and email in the database and returns the customer_id.
+# function that searches for existing customer using given customer name and email
+# this also returns the customer_id.
 
 
-# retrieves the available dates for the pet using it's given id
 def display_dates(pet_id):
     url = f'{host_url}/dates'
     data = {'pet_id': pet_id}
@@ -81,31 +80,39 @@ def display_dates(pet_id):
             list_of_available_dates.append(formatted_date_str)
 
     print("Available dates: ", list_of_available_dates)
+# retrieves the available dates for the pet using it's given id
 
 
-# retrieves the available timeslots for a specific pet on a specific date
-def display_timeslots(pet_id, bookingDate):
+def display_timeslots(pet_id, booking_date):
     url = f'{host_url}/timeslots'
-    data = {'pet_id': pet_id, 'bookingDate': bookingDate}
+    data = {'pet_id': pet_id, 'bookingDate': booking_date}
     response = requests.get(url, headers={'content-type': 'application/json'}, params=data)
+    try:
+        data = response.json()
+        timeslots = data['timeslots']
+        if timeslots:
+            filtered_table_headers = data['table_header']
+            print("Available time slots:", filtered_table_headers)
+        else:
+            print("No timeslots available.")
+    except json.decoder.JSONDecodeError:
+        print("Invalid JSON response:", response.text)
     timeslots = response.json()
+# retrieves the available timeslots for a specific pet on a specific date
 
-    # Create a dictionary with column names and corresponding timeslots
-    timeslot_dict = {
-        '9-11am': timeslots[0][0],
-        '1-3pm': timeslots[0][1],
-        '5-7pm': timeslots[0][2]
-    }
 
-    timeslot_list = []
-
-    # Loop through the dictionary and if the timeslot is empty append it to a list
-    for key, value in timeslot_dict.items():
-        if value is None:
-            timeslot_list.append(key)
-
-    # Displays a list of available timeslots in the format ['9-11am', '1-3pm', '5-7pm']
-    print(timeslot_list)
+def get_timeslot_choice():
+    while True:
+        timeslot = input('Enter the timeslot you would like to book (9-11am, 1-3pm, 5-7pm): ')
+        if timeslot == '9-11am':
+            return 'timeslot_9_11'
+        elif timeslot == '1-3pm':
+            return 'timeslot_13_15'
+        elif timeslot == '5-7pm':
+            return 'timeslot_17_19'
+        else:
+            print('Invalid timeslot. Please enter a valid timeslot.')
+# formats user input for timeslot choice
 
 
 def run():
@@ -115,20 +122,19 @@ def run():
     print()
 
     while True:
-        adopt_pet_choice = input('Would you like to rent or adopt one of our pets? (Type "exit" to quit) ').lower() # to format user input
+        adopt_pet_choice = input('Would the customer like to rent or adopt one of our pets? ("exit" to quit) ').lower()
         if adopt_pet_choice in ['rent', 'adopt', 'exit']:
             break
         else:
             print('Invalid choice. Please enter either "rent", "adopt" or "exit".')
 
     if adopt_pet_choice == 'rent':
-        ## pet availability shown here ###
+        display_availability()
         pet_id = input('Enter the ID of the pet you would like to rent: ')
-        ### dates available for selected pet id shown here ###
         display_dates(pet_id)
         date = input('Enter the date you would like to book (yyyy-mm-dd): ')
-        # display_timeslots(pet_id, date)
-        # timeslot = user input here for selected timeslot
+        display_timeslots(pet_id, date)
+        timeslot = get_timeslot_choice()
 
         customer = input('Are you a new customer? Enter yes or no: ')
         if customer == 'yes':
@@ -138,7 +144,7 @@ def run():
             if customer_id:
                 rent_pet(pet_id, timeslot, customer_id, date)
             else:
-                print("Failed to obtain customerid from new customer")
+                print("Failed to obtain customer id from new customer")
         else:
             customer_name = input("Enter customer name: ")
             customer_email = input("Enter customer email: ")
@@ -150,10 +156,10 @@ def run():
         # this is a loop for customer input
 
     elif adopt_pet_choice == 'adopt':
-    ### show available pets here ###
+        display_availability()
         pet_id = input('Enter the ID of the pet you would like to adopt: ')
-    ### activate adopt function here using pet id ###
-
+        adopt_pet(pet_id)
+    # if the customer wants to adopt
     elif adopt_pet_choice == 'exit':
         print("Goodbye! We hope to see you again soon.")
 
