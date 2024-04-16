@@ -135,9 +135,11 @@ To install the necessary project dependencies in your virtual environment you ca
 `pip install -r requirements.txt` 
 Once the packages are installed you can import them into your files.
 
-## Installing and using our API
+<details>
+
+## <summary> Installing and using our API </summary>
 ---
-<Instructions on how to use our API>
+
 
 Welcome to pet haven :dog:
 
@@ -161,11 +163,11 @@ To experience this joy, please follow the below instructions:
 7. If necessary, change the root of the host_url in the main.py and app.py file if another application on your machine is already using port 5000.
 8. Run the app.py file first and then run the main.py file on Pycharm.
 9. Follow the prompts that appear in the terminal to see what animals we have at pet haven (and you want to possible rent/adopt).
-10. Once you have pressed run on the app.py file, you can also access the API via the web browser or Postman using the host_url found in main.py (host_url = `http://127.0.0.1:5000`). For example, to access all available pets you would have to make a GET request on Postman: http://127.0.0.1:5000/pets
+10. Once you have pressed run on the app.py file, you can also access the API via the web browser or Postman using the host_url found in main.py (host_url = `http://127.0.0.1:5000`). For example, to access all available pets you would have to make a GET request on Postman: `http://127.0.0.1:5000/pets`
 11. If you experience any issues, please check the terminal where Flask is running and follow the instructions of any error messages that may appear on there. 
 
   
-</Instructions>
+</details>
 
 
 
@@ -173,8 +175,8 @@ To experience this joy, please follow the below instructions:
 
 ## Project Screenshots
 
-<Screenshots>
-
+<details>
+<summary>Screenshots</summary>
 ### checking status, created a new file, added the file to a branch & committing with a meaningful message: 
 
 ![image](https://github.com/adelikinz/assignment4/assets/108008511/5c8b5d11-060b-4538-bb5b-bd84b88b0d0f)  
@@ -195,6 +197,6 @@ To experience this joy, please follow the below instructions:
 
 ![image](https://github.com/adelikinz/assignment4/blob/main/Screenshot%202024-04-16%20at%2013.01.13.png?raw=true)
 
-</Screenshots>
+</details>
 
 
