@@ -191,6 +191,10 @@ To experience this joy, please follow the below instructions:
 ![image](https://github.com/adelikinz/assignment4/blob/diinin9-screenshots/Screenshot%202024-04-15%20at%2020.34.53.png?raw=true)
 ![image](https://github.com/adelikinz/assignment4/blob/diinin9-screenshots/Screenshot%202024-04-15%20at%2020.35.14.png?raw=true)
 
+### merging and deploying to main branch
+
+![image](https://github.com/adelikinz/assignment4/blob/main/Screenshot%202024-04-16%20at%2013.01.13.png?raw=true)
+
 </Screenshots>
 
 
