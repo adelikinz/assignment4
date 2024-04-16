@@ -51,13 +51,9 @@ INSERT INTO pets (pet_name, pet_type, age, available_for_rent) VALUES
 
 -- existing data for the customers table
 INSERT INTO customers (customer_name, customer_email) VALUES 
-('John Doe', 'john@example.com'),
-('Alice Smith', 'alice@example.com'),
-('Bob Johnson', 'bob@example.com');
-
--- example booking in the database
-INSERT INTO pet_bookings (pet_id, timeslot_9_11, booking_id_9_11, bookingDate) VALUES 
-(1, 1, 1, '2024-04-03');
+('john Doe', 'john@example.com'),
+('alice Smith', 'alice@example.com'),
+('bob Johnson', 'bob@example.com');
 
 CALL `pethaven_db`.`filldates`(20240401, 20240407, 1);
 CALL `pethaven_db`.`filldates`(20240401, 20240407, 2);
