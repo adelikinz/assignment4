@@ -135,9 +135,7 @@ To install the necessary project dependencies in your virtual environment you ca
 `pip install -r requirements.txt` 
 Once the packages are installed you can import them into your files.
 
-<details>
-
-## <summary> Installing and using our API </summary>
+## Installing and using our API
 ---
 
 
@@ -166,8 +164,7 @@ To experience this joy, please follow the below instructions:
 10. Once you have pressed run on the app.py file, you can also access the API via the web browser or Postman using the host_url found in main.py (host_url = `http://127.0.0.1:5000`). For example, to access all available pets you would have to make a GET request on Postman: `http://127.0.0.1:5000/pets`
 11. If you experience any issues, please check the terminal where Flask is running and follow the instructions of any error messages that may appear on there. 
 
-  
-</details>
+
 
 
 
@@ -175,19 +172,18 @@ To experience this joy, please follow the below instructions:
 
 ## Project Screenshots
 
-<details>
-<summary>Screenshots</summary>
-### checking status, created a new file, added the file to a branch & committing with a meaningful message: 
 
-![image](https://github.com/adelikinz/assignment4/assets/108008511/5c8b5d11-060b-4538-bb5b-bd84b88b0d0f)  
+### checking status, created a new file, added the file to a branch & committing with a meaningful message:
+
+![image](https://github.com/adelikinz/assignment4/assets/108008511/5c8b5d11-060b-4538-bb5b-bd84b88b0d0f)
 
 
 
 ![image](https://github.com/adelikinz/assignment4/blob/diinin9-screenshots/Screenshot%202024-04-15%20at%2020.34.27.png?raw=true)
 
-![image](https://github.com/adelikinz/assignment4/assets/108008511/0d3c4a4c-419f-4637-8fd2-1d9d5693e1bf)  
+![image](https://github.com/adelikinz/assignment4/assets/108008511/0d3c4a4c-419f-4637-8fd2-1d9d5693e1bf)
 ### created a new branch
-![image](https://github.com/adelikinz/assignment4/assets/108008511/315d638e-d6d1-41d7-b8e2-3b1a1de84e48) 
+![image](https://github.com/adelikinz/assignment4/assets/108008511/315d638e-d6d1-41d7-b8e2-3b1a1de84e48)
 
 ### opening a pull request
 ![image](https://github.com/adelikinz/assignment4/blob/diinin9-screenshots/Screenshot%202024-04-15%20at%2020.34.53.png?raw=true)
@@ -197,6 +193,7 @@ To experience this joy, please follow the below instructions:
 
 ![image](https://github.com/adelikinz/assignment4/blob/main/Screenshot%202024-04-16%20at%2013.01.13.png?raw=true)
 
-</details>
+> "Our mission is to make pet ownership accessible to all" 
+
 
 
