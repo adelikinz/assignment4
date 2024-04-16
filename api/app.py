@@ -156,11 +156,19 @@ def adopt_pet():
     query = "UPDATE pets SET available_for_rent = 0 WHERE pet_id = %s"
     db_call_with_values_without_return(query, (pet_id,))
 
+
+    return jsonify({'message': 'Pet adopted successfully'}), 200
+
+@app.route('/update_bookings', methods=['DELETE'])
+def update_bookings():
+    data = request.json
+    pet_id = data.get('pet_id')
+
     # Remove the pet from the available pets list
     query = "DELETE FROM pet_bookings WHERE pet_id = %s"
     db_call_with_values_without_return(query, (pet_id,))
 
-    return jsonify({'message': 'Pet adopted successfully and bookings deleted'}), 200
+    return jsonify({'message': 'Booking successfully deleted'}), 200
 # endpoint to update availability
 
 

@@ -27,10 +27,13 @@ def rent_pet(pet_id, timeslot, customer_id, date):
 
 
 def adopt_pet(pet_id):
-    url = f'{host_url}/adopt'
+    url_adopt = f'{host_url}/adopt'
+    url_booking = f'{host_url}/update_bookings'
     data = {'pet_id': pet_id}
-    response = requests.post(url, headers={'content-type': 'application/json'}, json=data)
-    print(response.json())
+    response_adopt = requests.post(url_adopt, headers={'content-type': 'application/json'}, json=data)
+    print(response_adopt.json())
+    response_booking = requests.delete(url_booking, headers={'content-type': 'application/json'}, json=data)
+    print(response_booking.json())
 # function that removes any bookings and alters availability to remove the pet from the available pet list
 
 
