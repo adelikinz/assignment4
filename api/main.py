@@ -68,18 +68,25 @@ def display_dates(pet_id):
     url = f'{host_url}/dates'
     data = {'pet_id': pet_id}
     response = requests.get(url, headers={'content-type': 'application/json'}, params=data)
-    response_data = response.json()
 
-    list_of_available_dates = []
+    if response.status_code == 200:
+        response_data = response.json()
 
-    # Create a list of dates displayed as ['YYYY-MM-DD']
-    for main_list in response_data:
-        for date_list in main_list:
-            date_obj = datetime.strptime(date_list, '%a, %d %b %Y %H:%M:%S %Z')
-            formatted_date_str = date_obj.strftime('%Y-%m-%d')
-            list_of_available_dates.append(formatted_date_str)
+        list_of_available_dates = []
 
-    print("Available dates: ", list_of_available_dates)
+        # Create a list of dates displayed as ['YYYY-MM-DD']
+        for main_list in response_data:
+            for date_list in main_list:
+                date_obj = datetime.strptime(date_list, '%a, %d %b %Y %H:%M:%S %Z')
+                formatted_date_str = date_obj.strftime('%Y-%m-%d')
+                list_of_available_dates.append(formatted_date_str)
+
+        print("Available dates: ", list_of_available_dates)
+        return list_of_available_dates
+
+    else:
+        print("Failed to retrieve available dates.")
+        return None
 # retrieves the available dates for the pet using it's given id
 
 
@@ -129,38 +136,78 @@ def run():
             print('Invalid choice. Please enter either "rent", "adopt" or "exit".')
 
     if adopt_pet_choice == 'rent':
+        print()
         display_availability()
-        pet_id = input('Enter the ID of the pet you would like to rent: ')
-        display_dates(pet_id)
-        date = input('Enter the date you would like to book (yyyy-mm-dd): ')
-        display_timeslots(pet_id, date)
+
+        while True:
+            pet_id = input('\nEnter the ID of the pet you would like to rent: ')
+            response = requests.get(f'{host_url}/pets', headers={'content-type': 'application/json'})
+            if response.status_code == 200:
+                pets = response.json()
+                pet_ids = [str(pet[0]) for pet in pets]
+                if pet_id in pet_ids:
+                    break
+                else:
+                    print("Pet not found. Please try again.")
+            else:
+                print("Failed to retrieve available pets. Please try again.")
+
+        print()
+        available_dates = display_dates(pet_id)
+        if available_dates:
+            while True:
+                chosen_date = input('Enter the date you would like to book (yyyy-mm-dd): ')
+                if chosen_date in available_dates:
+                    break
+                else:
+                    print("Date not valid or available. Please try again.")
+        else:
+            print("Failed to retrieve available dates.")
+
+        print()
+        display_timeslots(pet_id, chosen_date)
         timeslot = get_timeslot_choice()
 
-        customer = input('Are you a new customer? Enter yes or no: ')
-        if customer == 'yes':
-            customer_name = input("Enter customer name: ")
-            customer_email = input("Enter customer email: ")
-            customer_id = create_customer(customer_name, customer_email)
-            if customer_id:
-                rent_pet(pet_id, timeslot, customer_id, date)
+        # Creating new customer or checking for existing customer in db
+        customer_id = None
+
+        while customer_id is None:
+            customer = input('\nAre you a new customer? Enter yes or no: ')
+            if customer == 'yes':
+                customer_name = input("Enter customer name: ")
+                customer_email = input("Enter customer email: ")
+                customer_id = create_customer(customer_name, customer_email)
+                if customer_id:
+                    rent_pet(pet_id, timeslot, customer_id, chosen_date)
+                else:
+                    print("Failed to create customer. Please try again.")
+            elif customer == 'no':
+                customer_name = input("Enter customer name: ")
+                customer_email = input("Enter customer email: ")
+                customer_id = query_existing_customer(customer_name, customer_email)
+                if customer_id:
+                    rent_pet(pet_id, timeslot, customer_id, chosen_date)
+                else:
+                    print("Please check the name and email and try again.")
             else:
-                print("Failed to obtain customer id from new customer")
-        else:
-            customer_name = input("Enter customer name: ")
-            customer_email = input("Enter customer email: ")
-            customer_id = query_existing_customer(customer_name, customer_email)
-            if customer_id:
-                rent_pet(pet_id, timeslot, customer_id, date)
-            else:
-                print("Failed to obtain customer id from existing customer")
-        # this is a loop for customer input
+                print("Invalid input. Please enter either 'yes' or 'no'.")
+
+    # this is a loop for customer input
 
     elif adopt_pet_choice == 'adopt':
-        display_availability()
-        pet_id = input('Enter the ID of the pet you would like to adopt: ')
-        adopt_pet(pet_id)
+        while True:
+            print()
+            display_availability()
+            pet_id = input('Enter the ID of the pet you would like to adopt: ')
+            # This checks if the user input for pet ID is valid
+            if pet_id in ['1', '2', '3']:
+                adopt_pet(pet_id)
+                break
+            else:
+                print("\nPet not found. Please try again.")
     # if the customer wants to adopt
     elif adopt_pet_choice == 'exit':
+
         print("Goodbye! We hope to see you again soon.")
 
 
